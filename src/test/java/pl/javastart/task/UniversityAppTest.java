@@ -319,5 +319,4 @@ class UniversityAppTest {
     void cleanup() {
         System.setOut(originalOut);
     }
-
 }
