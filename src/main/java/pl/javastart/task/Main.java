@@ -9,6 +9,8 @@ public class Main {
         universityApp.createLecturer(1, "dr", "Janusz", "Rataj");
         universityApp.createGroup("pp-2022", "Podstawy Programowania", 1);
         universityApp.createGroup("po-2022", "Programowanie Obiektowe", 1);
+
+        System.out.println(Group.getGroupList());
         universityApp.addStudentToGroup(179128, "pp-2022", "Marcin", "Abacki");
         universityApp.addStudentToGroup(179129, "pp-2022", "Adam", "Browarski");
         universityApp.printAllStudents();
