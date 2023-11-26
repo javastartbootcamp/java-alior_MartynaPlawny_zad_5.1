@@ -142,7 +142,7 @@ public class UniversityApp {
     public void printGradesForGroup(String groupCode) {
 
         boolean groupExists = false;
-        for (Group group : Group.getGroupList()) {
+        for (Group group : groupList) {
             if (Objects.equals(group.getCode(), groupCode)) {
                 groupExists = true;
             }
