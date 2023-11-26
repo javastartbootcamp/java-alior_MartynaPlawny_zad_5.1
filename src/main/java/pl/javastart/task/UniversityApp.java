@@ -3,6 +3,7 @@ package pl.javastart.task;
 import java.util.*;
 
 public class UniversityApp {
+    static List<Group> groupList = new ArrayList<>();
 
     /**
      * Tworzy prowadzącego zajęcia.
@@ -15,6 +16,7 @@ public class UniversityApp {
      * @param lastName  - nazwisko prowadzącego
      */
     public void createLecturer(int id, String degree, String firstName, String lastName) {
+
         new Lecturer(id, degree, firstName, lastName);
     }
 
@@ -30,7 +32,8 @@ public class UniversityApp {
      * @param lecturerId - identyfikator prowadzącego. Musi zostać wcześniej utworzony za pomocą metody {@link #createLecturer(int, String, String, String)}
      */
     public void createGroup(String code, String name, int lecturerId) {
-        new Group(code, name, lecturerId);
+
+        groupList.add(new Group(code, name, lecturerId));
     }
 
 
@@ -45,6 +48,7 @@ public class UniversityApp {
      * @param lastName  - nazwisko studenta
      */
     public void addStudentToGroup(int index, String groupCode, String firstName, String lastName) {
+
         Student student = new Student(index, groupCode, firstName, lastName);
     }
 
@@ -64,6 +68,7 @@ public class UniversityApp {
      * @param groupCode - kod grupy, dla której wyświetlić informacje
      */
     public void printGroupInfo(String groupCode) {
+
         Group foundGroup = null;
 
         for (Group group : Group.getGroupList()) {
@@ -101,6 +106,7 @@ public class UniversityApp {
      * @param grade        - ocena
      */
     public void addGrade(int studentIndex, String groupCode, double grade) {
+
         Grade finalGrade = new Grade(studentIndex, groupCode, grade);
     }
 
@@ -113,6 +119,7 @@ public class UniversityApp {
      * @param index - numer indesku studenta dla którego wyświetlić oceny
      */
     public void printGradesForStudent(int index) {
+
         for (Group group : Group.getGroupList()) {
             for (Student student : group.getStudentList()) {
                 if (student.getIndex() == index) {
@@ -133,14 +140,8 @@ public class UniversityApp {
      * @param groupCode - kod grupy, dla której wyświetlić oceny
      */
     public void printGradesForGroup(String groupCode) {
-        boolean groupExists = false;
-        for (Student student : Student.getStudentList()) {
-            if (Objects.equals(student.getGroupCode(), groupCode)) {
-                System.out.println(student.getIndex() + " " + student.getFirstName() + " " + student.getLastName() +
-                        ": " + student.getFinalGrade());
-            }
-        }
 
+        boolean groupExists = false;
         for (Group group : Group.getGroupList()) {
             if (Objects.equals(group.getCode(), groupCode)) {
                 groupExists = true;
@@ -148,7 +149,16 @@ public class UniversityApp {
         }
         if (!groupExists) {
             System.out.println("Grupa " + groupCode + " nie istnieje");
+        } else {
+            for (Student student : Student.getStudentList()) {
+                if (Objects.equals(student.getGroupCode(), groupCode)) {
+                    System.out.println(student.getIndex() + " " + student.getFirstName() + " " + student.getLastName() +
+                            ": " + student.getFinalGrade());
+                }
+            }
         }
+
+
     }
 
     /**
@@ -160,6 +170,7 @@ public class UniversityApp {
      * 189521 Anna Kowalska
      */
     public void printAllStudents() {
+
         Map<Integer, String> studentMap = new HashMap<Integer, String>();
         for (Student student : Student.getStudentList()) {
             studentMap.put(student.getIndex(), student.getFirstName() + " " + student.getLastName());
